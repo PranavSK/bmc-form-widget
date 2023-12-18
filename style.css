@@ -1,0 +1,354 @@
+:root {
+  --color-heading: #352a63;
+  --color-text: #666666;
+  --color-text-active: #333333;
+  --color-input-background: #ffffff;
+  --color-background: #f6f4ff;
+  --color-muted: #9c9cae;
+  --color-border-default: #cccccc;
+  --color-border-active: #7a5cfa;
+  --color-border-error: #ff0000;
+  --color-border: var(--color-border-default);
+  --color-arrow: var(--color-border-default);
+}
+
+body {
+  padding: 0px;
+  margin: 0px;
+}
+
+.app {
+  color: var(--color-text);
+  display: grid;
+
+  grid-template-areas:
+      "title"
+      "video"
+      "form"
+      "image";
+    grid-template-columns: 1fr;
+    grid-template-rows: min-content 1fr auto auto;
+    gap: 0;
+}
+
+@media screen and (min-width: 600px) {
+  .app {
+    grid-template-areas:
+      "title form"
+      "video form"
+      "image form";
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: min-content 1fr auto;
+    gap: 1rem;
+  }
+}
+
+.app__title {
+  grid-area: title;
+
+  text-align: center;
+  font-family: "Roboto";
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 700;
+
+  color: var(--color-heading);
+}
+
+@media screen and (min-width: 600px) {
+  .app__title {
+    font-size: 2.5rem;
+  }
+}
+
+.marker__underline {
+  display: inline-block;
+  position: relative;
+}
+
+.marker__underline::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0px;
+  width: 100%;
+  height: 0.8rem;
+  transform: skew(-12deg) translateX(-50%);
+  background: var(--color-background);
+  z-index: -1;
+}
+
+.image-container {
+  grid-area: image;
+}
+
+.image-container img {
+  width: 100%;
+  height: auto;
+}
+
+.embed-container {
+  grid-area: video;
+
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  max-width: 100%;
+}
+.embed-container iframe,
+.embed-container object,
+.embed-container embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.card {
+  grid-area: form;
+  display: flex;
+  padding: 2rem 2.75rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  gap: 1.5rem;
+  background-color: var(--color-background);
+}
+
+.card__header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.card__title {
+  color: var(--color-heading);
+  text-align: center;
+  font-family: "Roboto";
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.card__subtitle {
+  color: var(--color-muted);
+  text-align: center;
+  font-family: "Roboto";
+  font-size: 0.675rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1rem;
+}
+
+@media screen and (min-width: 600px) {
+  .card__title {
+    font-size: 2.5rem;
+  }
+
+  .card__subtitle {
+    font-size: 0.875rem;
+  }
+}
+
+.card__body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  gap: 1rem;
+}
+
+.card__input__wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  gap: 0.5rem;
+}
+
+.card__input__label {
+  font-family: "Roboto";
+  font-size: 0.75rem;
+  font-style: normal;
+  font-weight: 700;
+
+  letter-spacing: 0.075rem;
+  text-transform: uppercase;
+}
+
+.card__input {
+  border-radius: 0.5rem;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-input-background);
+  padding: 0.875rem;
+  font-family: "Roboto";
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+}
+
+.card__input:focus {
+  outline: none;
+  color: var(--color-text-active);
+  --color-border: var(--color-border-active);
+}
+
+.card__input:user-invalid {
+  --color-border: var(--color-border-error);
+}
+
+@media screen and (min-width: 600px) {
+  .card__input {
+    font-size: 1rem;
+  }
+}
+
+.select__reset {
+  /* A reset of styles, including removing the default dropdown arrow */
+  appearance: none;
+  outline: none;
+  box-sizing: border-box;
+  background-color: transparent;
+  border: none;
+  padding: 0 1em 0 0;
+  margin: 0;
+  width: 100%;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: inherit;
+  line-height: inherit;
+  grid-area: "select";
+}
+
+.select__reset::-ms-expand {
+  display: none;
+}
+
+.select__custom {
+  cursor: pointer;
+  display: grid;
+  grid-template-areas: "select";
+  align-items: center;
+}
+
+.select__custom.card__input {
+  padding: 0px;
+  padding-right: 0.875rem;
+}
+
+.select__custom select {
+  grid-area: select;
+  height: 100%;
+  padding: 0.875rem;
+}
+
+.select__custom::after {
+  content: "";
+  grid-area: select;
+  justify-self: end;
+  width: 0.8em;
+  height: 0.5em;
+  background-color: var(--color-arrow);
+  clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+  pointer-events: none;
+}
+
+.select__custom:focus-within {
+  outline: none;
+  color: var(--color-text-active);
+  --color-border: var(--color-border-active);
+  --color-arrow: var(--color-border-active);
+}
+
+.radio__reset {
+  display: none;
+  /* Add if not using autoprefixer */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  /* For iOS < 15 to remove gradient background */
+  background-color: #fff;
+  /* Not removed via appearance */
+  margin: 0;
+}
+
+.radio__wrapper {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(var(--min-col-width, 4.2rem), 1fr)
+  );
+  gap: 0.625rem;
+}
+
+.radio__wrapper[data-is-wide="true"] {
+  --min-col-width: 3.8rem;
+}
+
+.radio__button {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 0.7rem;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 0.5rem;
+  border: 1.5px solid var(--color-border);
+  gap: 0.25rem;
+
+  text-align: center;
+  font-family: "Roboto";
+  font-size: 0.7rem;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.radio__button:has(input:checked) {
+  --color-border: var(--color-border-active);
+  color: var(--color-border-active);
+}
+
+@media screen and (min-width: 600px) {
+  .radio__button {
+    padding: 1rem 1.5rem;
+    flex-direction: column;
+    font-size: 1rem;
+  }
+
+  .radio__wrapper[data-is-wide="true"] {
+    --min-col-width: 8.375rem;
+  }
+}
+
+.card__footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.submit__button {
+  display: flex;
+  padding: 1rem 3.25rem;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: var(--color-border-active);
+  color: #ffffff;
+  font-family: "Roboto";
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.125rem;
+  cursor: pointer;
+}
+
+.submit__button:disabled {
+  background-color: var(--color-border-default);
+  cursor: not-allowed;
+}
