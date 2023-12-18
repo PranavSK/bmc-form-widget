@@ -19,28 +19,6 @@ body {
 
 .app {
   color: var(--color-text);
-  display: grid;
-
-  grid-template-areas:
-      "title"
-      "video"
-      "form"
-      "image";
-    grid-template-columns: 1fr;
-    grid-template-rows: min-content 1fr auto auto;
-    gap: 0;
-}
-
-@media screen and (min-width: 600px) {
-  .app {
-    grid-template-areas:
-      "title form"
-      "video form"
-      "image form";
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: min-content 1fr auto;
-    gap: 1rem;
-  }
 }
 
 .app__title {

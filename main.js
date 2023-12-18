@@ -1,109 +1,247 @@
-const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-const MONTHS = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "June",
-  "July",
-  "Aug",
-  "Sept",
-  "Oct",
-  "Nov",
-  "Dec",
-];
+const SHEET_NAME = "Sheet2";
 
-const TIME_SLOTS = [
-  "2:00 PM",
-  "3:00 PM",
-  "4:00 PM",
-  "5:00 PM",
-  "6:00 PM",
-  "7:00 PM",
-];
+const SLOT_OPTIONS = {
+  cbse: {
+    4: {
+      mathSci: [
+        { time: "5:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "6:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "4:30pm", days: ["Mon", "Wed", "Fri"] },
+        { time: "8:00pm", days: ["Mon", "Wed", "Fri"] },
+        { time: "9:00pm", days: ["Tue", "Thu", "Sat"] },
+      ],
+      english: [
+        { time: "5:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "6:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "4:30pm", days: ["Mon", "Wed", "Fri"] },
+        { time: "8:00pm", days: ["Mon", "Wed", "Fri"] },
+        { time: "9:00pm", days: ["Tue", "Thu", "Sat"] },
+      ],
+      sst: [
+        { time: "5:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "6:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "4:30pm", days: ["Mon", "Wed", "Fri"] },
+        { time: "8:00pm", days: ["Mon", "Wed", "Fri"] },
+        { time: "9:00pm", days: ["Tue", "Thu", "Sat"] },
+      ],
+      doubts: [
+        { time: "5:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "6:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "4:30pm", days: ["Mon", "Wed", "Fri"] },
+        { time: "8:00pm", days: ["Mon", "Wed", "Fri"] },
+        { time: "9:00pm", days: ["Tue", "Thu", "Sat"] },
+      ],
+    },
+    5: {
+      mathSci: [
+        { time: "5:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "6:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "4:30pm", days: ["Mon", "Wed", "Fri"] },
+        { time: "8:00pm", days: ["Mon", "Wed", "Fri"] },
 
-const G_FORM_APP = "https://script.google.com/macros/s/AKfycbwo8hvSpvR3gKxkU94BQ_pzPYmNde3uvl_9RZr54aVYu8vUUt99BkG72t2ase5sIexIjg/exec";
+      ],
+      english: [
+        { time: "5:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "6:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "4:30pm", days: ["Mon", "Wed", "Fri"] },
+        { time: "8:00pm", days: ["Mon", "Wed", "Fri"] },
+        { time: "9:00pm", days: ["Tue", "Thu", "Sat"] },
+      ],
+      sst: [
+        { time: "5:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "6:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "4:30pm", days: ["Mon", "Wed", "Fri"] },
+        { time: "8:00pm", days: ["Mon", "Wed", "Fri"] },
+        { time: "9:00pm", days: ["Tue", "Thu", "Sat"] },
+      ],
+      doubts: [
+        { time: "5:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "6:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "4:30pm", days: ["Mon", "Wed", "Fri"] },
+        { time: "8:00pm", days: ["Mon", "Wed", "Fri"] },
+        { time: "9:00pm", days: ["Tue", "Thu", "Sat"] },
+      ],
+    },
+    6: {
+      mathSci: [
+        { time: "5:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "6:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "4:30pm", days: ["Mon", "Wed", "Fri"] },
+        { time: "8:00pm", days: ["Mon", "Wed", "Fri"] },
+        { time: "9:00pm", days: ["Tue", "Thu", "Sat"] },
+      ],
+      english: [
+        { time: "5:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "6:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "4:30pm", days: ["Mon", "Wed", "Fri"] },
+        { time: "8:00pm", days: ["Mon", "Wed", "Fri"] },
+        { time: "9:00pm", days: ["Tue", "Thu", "Sat"] },
+      ],
+      sst: [
+        { time: "5:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "6:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "4:30pm", days: ["Mon", "Wed", "Fri"] },
+        { time: "8:00pm", days: ["Mon", "Wed", "Fri"] },
+        { time: "9:00pm", days: ["Tue", "Thu", "Sat"] },
+      ],
+      doubts: [
+        { time: "5:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "6:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "4:30pm", days: ["Mon", "Wed", "Fri"] },
+        { time: "8:00pm", days: ["Mon", "Wed", "Fri"] },
+        { time: "9:00pm", days: ["Tue", "Thu", "Sat"] },
+      ],
+    },
+    7: {
+      mathSci: [
+        { time: "5:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "6:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "4:30pm", days: ["Mon", "Wed", "Fri"] },
+        { time: "8:00pm", days: ["Mon", "Wed", "Fri"] },
+        { time: "9:00pm", days: ["Tue", "Thu", "Sat"] },
+      ],
+      english: [
+        { time: "5:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "6:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "4:30pm", days: ["Mon", "Wed", "Fri"] },
+        { time: "8:00pm", days: ["Mon", "Wed", "Fri"] },
+        { time: "9:00pm", days: ["Tue", "Thu", "Sat"] },
+      ],
+      sst: [
+        { time: "5:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "6:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "4:30pm", days: ["Mon", "Wed", "Fri"] },
+        { time: "8:00pm", days: ["Mon", "Wed", "Fri"] },
+        { time: "9:00pm", days: ["Tue", "Thu", "Sat"] },
+      ],
+      doubts: [
+        { time: "5:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "6:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "4:30pm", days: ["Mon", "Wed", "Fri"] },
+        { time: "8:00pm", days: ["Mon", "Wed", "Fri"] },
+        { time: "9:00pm", days: ["Tue", "Thu", "Sat"] },
+      ],
+    },
+    8: {
+      mathSci: [
+        { time: "5:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "6:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "4:30pm", days: ["Mon", "Wed", "Fri"] },
+        { time: "8:00pm", days: ["Mon", "Wed", "Fri"] },
+        { time: "9:00pm", days: ["Tue", "Thu", "Sat"] },
+      ],
+      english: [
+        { time: "5:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "6:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "4:30pm", days: ["Mon", "Wed", "Fri"] },
+        { time: "8:00pm", days: ["Mon", "Wed", "Fri"] },
+        { time: "9:00pm", days: ["Tue", "Thu", "Sat"] },
+      ],
+      sst: [
+        { time: "5:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "6:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "4:30pm", days: ["Mon", "Wed", "Fri"] },
+        { time: "8:00pm", days: ["Mon", "Wed", "Fri"] },
+        { time: "9:00pm", days: ["Tue", "Thu", "Sat"] },
+      ],
+      doubts: [
+        { time: "5:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "6:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "4:30pm", days: ["Mon", "Wed", "Fri"] },
+        { time: "8:00pm", days: ["Mon", "Wed", "Fri"] },
+        { time: "9:00pm", days: ["Tue", "Thu", "Sat"] },
+      ],
+    },
+    9: {
+      mathSci: [
+        { time: "5:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "6:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "4:30pm", days: ["Mon", "Wed", "Fri"] },
+        { time: "8:00pm", days: ["Mon", "Wed", "Fri"] },
+        { time: "9:00pm", days: ["Tue", "Thu", "Sat"] },
+      ],
+      english: [
+        { time: "5:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "6:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "4:30pm", days: ["Mon", "Wed", "Fri"] },
+        { time: "8:00pm", days: ["Mon", "Wed", "Fri"] },
+        { time: "9:00pm", days: ["Tue", "Thu", "Sat"] },
+      ],
+      sst: [
+        { time: "5:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "6:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "4:30pm", days: ["Mon", "Wed", "Fri"] },
+        { time: "8:00pm", days: ["Mon", "Wed", "Fri"] },
+        { time: "9:00pm", days: ["Tue", "Thu", "Sat"] },
+      ],
+      doubts: [
+        { time: "5:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "6:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "4:30pm", days: ["Mon", "Wed", "Fri"] },
+        { time: "8:00pm", days: ["Mon", "Wed", "Fri"] },
+        { time: "9:00pm", days: ["Tue", "Thu", "Sat"] },
+      ],
+    },
+    10: {
+      mathSci: [
+        { time: "5:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "6:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "4:30pm", days: ["Mon", "Wed", "Fri"] },
+        { time: "8:00pm", days: ["Mon", "Wed", "Fri"] },
+        { time: "9:00pm", days: ["Tue", "Thu", "Sat"] },
+      ],
+      english: [
+        { time: "5:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "6:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "4:30pm", days: ["Mon", "Wed", "Fri"] },
+        { time: "8:00pm", days: ["Mon", "Wed", "Fri"] },
+        { time: "9:00pm", days: ["Tue", "Thu", "Sat"] },
+      ],
+      sst: [
+        { time: "5:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "6:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "4:30pm", days: ["Mon", "Wed", "Fri"] },
+        { time: "8:00pm", days: ["Mon", "Wed", "Fri"] },
+        { time: "9:00pm", days: ["Tue", "Thu", "Sat"] },
+      ],
+      doubts: [
+        { time: "5:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "6:45pm", days: ["Tue", "Thu", "Sat"] },
+        { time: "4:30pm", days: ["Mon", "Wed", "Fri"] },
+        { time: "8:00pm", days: ["Mon", "Wed", "Fri"] },
+        { time: "9:00pm", days: ["Tue", "Thu", "Sat"] },
+      ],
+    },
+  },
+};
 
-function setupDatePicker() {
-  const wrapper = document.querySelector("#date-picker");
-  const days = getNextDays(4);
+const G_FORM_APP =
+  "https://script.google.com/macros/s/AKfycbwo8hvSpvR3gKxkU94BQ_pzPYmNde3uvl_9RZr54aVYu8vUUt99BkG72t2ase5sIexIjg/exec";
 
-  days.forEach((day, index) => {
-    wrapper.appendChild(createDateElement(day, index === 0));
+function main() {
+  setupForm();
+
+  const boardElement = document.querySelector("#board-select");
+  const gradeElement = document.querySelector("#grade-select");
+  let selectedBoard = boardElement.value;
+  let selectedGrade = gradeElement.value;
+
+  boardElement.addEventListener("change", (event) => {
+    selectedBoard = event.target.value;
+    setupSlots(selectedBoard, selectedGrade);
   });
-}
 
-function getNextDays(n) {
-  const days = [];
-  const today = new Date();
-  for (let i = 0; i < n; i++) {
-    const date = new Date(today);
-    date.setDate(today.getDate() + i);
-    days.push(date);
-  }
-  return days;
-}
-
-function createDateElement(date, isDefault = false) {
-  const id = date.toISOString().split("T")[0];
-  const root = document.createElement("label");
-  root.classList.add("radio__button");
-  root.setAttribute("for", id);
-  const inputElement = document.createElement("input");
-  inputElement.classList.add("radio__reset");
-  inputElement.setAttribute("type", "radio");
-  inputElement.setAttribute("name", "date");
-  inputElement.setAttribute("id", id);
-  inputElement.setAttribute("value", id);
-  if (isDefault) {
-    inputElement.setAttribute("checked", "");
-    inputElement.setAttribute("required", "");
-  }
-  root.appendChild(inputElement);
-
-  const dayElement = document.createElement("span");
-  dayElement.textContent = DAYS[date.getDay()];
-  root.appendChild(dayElement);
-
-  const dateElement = document.createElement("span");
-  dateElement.textContent = `${date.getDate()} ${MONTHS[date.getMonth()]}`;
-  
-  root.appendChild(dateElement);
-  return root;
-}
-
-function setupTimePicker() {
-  const wrapper = document.querySelector("#time-picker");
-  TIME_SLOTS.forEach((time, index) => {
-    wrapper.appendChild(createTimeElement(time, index === 0));
+  gradeElement.addEventListener("change", (event) => {
+    selectedGrade = event.target.value;
+    setupSlots(selectedBoard, selectedGrade);
   });
+
+  setupSlots(selectedBoard, selectedGrade);
 }
-
-function createTimeElement(time, isDefault = false) {
-  const root = document.createElement("label");
-  root.classList.add("radio__button");
-  root.setAttribute("for", time);
-  const inputElement = document.createElement("input");
-  inputElement.classList.add("radio__reset");
-  inputElement.setAttribute("type", "radio");
-  inputElement.setAttribute("name", "time");
-  inputElement.setAttribute("value", time);
-  inputElement.setAttribute("id", time);
-  if (isDefault) {
-    inputElement.setAttribute("checked", "");
-    inputElement.setAttribute("required", "");
-  }
-  root.appendChild(inputElement);
-
-  const timeElement = document.createTextNode(time);
-  root.appendChild(timeElement);
-
-  return root;
-}
+main();
 
 function setupForm() {
-  const form = document.forms['reg-form']
+  const form = document.forms["reg-form"];
   const submitButton = document.querySelector("#reg-form-submit");
 
   form.addEventListener("submit", async (event) => {
@@ -112,20 +250,20 @@ function setupForm() {
 
     let formData = new FormData(form);
     const requestBody = {};
-    for (var [key, value] of formData.entries()) { 
+    for (var [key, value] of formData.entries()) {
       requestBody[key] = value;
     }
-    requestBody["video-played"] = window.videoPlayed ?? false;
-    requestBody["sheet"] = 'Sheet1'
+
+    requestBody["sheet"] = SHEET_NAME;
     try {
       const response = await fetch(G_FORM_APP, {
         method: "POST",
         body: JSON.stringify(requestBody),
       });
-      const {result, ...data} = await response.json();
+      const { result, ...data } = await response.json();
       if (result !== "success") {
         console.error(`ERROR: ${JSON.stringify(data.error)}}`);
-        submitButton.innerHTML = "Error!";
+        submitButton.innerHTML = "Error! Please contact us.";
       } else {
         submitButton.innerHTML = "Demo Booked!";
       }
@@ -136,35 +274,38 @@ function setupForm() {
   });
 }
 
-function setupYoutubeVideo() {
-  const tag = document.createElement("script");
-  tag.src = "https://www.youtube.com/iframe_api";
-  const firstScriptTag = document.getElementsByTagName("script")[0];
-  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+function setupSlots(board, grade) {
+  const slotsBySubject = SLOT_OPTIONS[board][grade];
+  for (const [subject, slots] of Object.entries(slotsBySubject)) {
+    const wrapper = document.querySelector(`#${subject}-slots`);
+    // delete existing slots
+    while (wrapper.firstChild) {
+      wrapper.removeChild(wrapper.firstChild);
+    }
+    slots.forEach(({ time, days }) => {
+      const value = `${time}-${days.join(",")}`;
+      const id = `${subject}-${value}`;
+      const root = document.createElement("label");
+      root.classList.add("radio__button");
+      root.setAttribute("for", id);
+      const inputElement = document.createElement("input");
+      inputElement.classList.add("radio__reset");
+      inputElement.setAttribute("type", "radio");
+      inputElement.setAttribute("name", subject);
+      inputElement.setAttribute("id", id);
+      inputElement.setAttribute("value", value);
+      root.appendChild(inputElement);
 
-  window.onYouTubeIframeAPIReady = ()=> {
-    window.player = new YT.Player("yt-player", {
-      width: '320',
-      videoId: "k6D28uDBpcU",
-      events: {
-        onStateChange: onPlayerStateChange,
-      },
+      const dayElement = document.createElement("span");
+      dayElement.textContent = days.join(", ");
+      dayElement.style.fontSize = "0.8rem";
+      root.appendChild(dayElement);
+
+      const dateElement = document.createElement("span");
+      dateElement.textContent = time;
+
+      root.appendChild(dateElement);
+      wrapper.appendChild(root);
     });
   }
-
-  function onPlayerStateChange(event) {
-    if (event.data === YT.PlayerState.PLAYING) {
-      window.videoPlayed = true;
-    }
-  }
-
 }
-
-function main() {
-  setupDatePicker();
-  setupTimePicker();
-  setupForm();
-  setupYoutubeVideo();
-}
-
-main();
