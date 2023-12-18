@@ -38,13 +38,16 @@ body {
       "video form"
       "image form";
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: min-content 1fr auto;
+    grid-template-rows: auto auto auto;
     gap: 1rem;
+    column-gap: 0;
   }
 }
 
 .app__title {
   grid-area: title;
+  margin: 1em 0.25em;
+  line-height: 1.2em;
 
   text-align: center;
   font-family: "Roboto";
@@ -58,6 +61,7 @@ body {
 @media screen and (min-width: 600px) {
   .app__title {
     font-size: 2.5rem;
+    margin-bottom: 0;
   }
 }
 
@@ -80,6 +84,7 @@ body {
 
 .image-container {
   grid-area: image;
+  margin-top: 1em;
 }
 
 .image-container img {
