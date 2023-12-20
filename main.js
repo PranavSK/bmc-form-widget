@@ -242,7 +242,6 @@ function main() {
     checkPage1Complete();
   });
 
-
   setupSlots(selectedBoard, selectedGrade);
 
   setupPagination();
@@ -298,7 +297,7 @@ function setupSlots(board, grade) {
     while (wrapper.firstChild) {
       wrapper.removeChild(wrapper.firstChild);
     }
-    slots.forEach(({ time, days }) => {
+    slots.forEach(({ time, days }, i) => {
       const value = `${time}-${days.join(",")}`;
       const id = `${subject}-${value}`;
       const root = document.createElement("label");
@@ -310,6 +309,8 @@ function setupSlots(board, grade) {
       inputElement.setAttribute("name", subject);
       inputElement.setAttribute("id", id);
       inputElement.setAttribute("value", value);
+      inputElement.setAttribute("required", true);
+      inputElement.setAttribute("checked", i === 0);
       root.appendChild(inputElement);
 
       const dayElement = document.createElement("span");
