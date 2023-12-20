@@ -330,3 +330,58 @@ body {
   background-color: var(--color-border-default);
   cursor: not-allowed;
 }
+
+.submit__button:not(.active) {
+  display: none;
+}
+
+.breadcrumbs {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+}
+
+.breadcrumbs li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background-color: var(--color-border);
+
+  color: var(--color-text);
+  font-family: "Roboto";
+  font-size: 0.75rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1rem;
+
+  cursor: default;
+}
+
+.breadcrumbs li.active {
+  --color-border: var(--color-border-active);
+  color: white;
+}
+
+.breadcrumbs li:not(:first-child)::before {
+  content: "";
+  width: 1rem;
+  height: 2px;
+  background-color: var(--color-border);
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  transform: translateY(-50%);
+}
+
+.page:not(.active) {
+  display: none;
+}

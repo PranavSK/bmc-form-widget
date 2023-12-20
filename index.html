@@ -17,66 +17,90 @@
       <form id="reg-form" class="card" method="post" name="reg-form">
         <div class="card__header">
           <div class="card__title">Book a Free Class</div>
+          <nav>
+            <ul class="breadcrumbs"></ul>
+          </nav>
         </div>
-        <div class="card__body">
-          <div class="card__input__wrapper">
-            <label for="email-input" class="card__input__label">Email *</label>
-            <input
-              name="email"
-              type="email"
-              id="email-input"
-              class="card__input"
-              placeholder="Type here"
-              required
-            />
-          </div>
-          <div class="card__input__wrapper">
-            <label for="board-select" class="card__input__label">Board *</label>
-            <div class="select__custom card__input">
-              <select
-                name="board"
-                id="board-select"
-                class="select__reset"
-                required
+        <div>
+          <div class="card__body page">
+            <div class="card__input__wrapper">
+              <label for="email-input" class="card__input__label"
+                >Email *</label
               >
-                <option value="cbse">CBSE</option>
-              </select>
+              <input
+                name="email"
+                type="email"
+                id="email-input"
+                class="card__input"
+                placeholder="Type here"
+                required
+              />
+            </div>
+            <div class="card__input__wrapper">
+              <label for="board-select" class="card__input__label"
+                >Board *</label
+              >
+              <div class="select__custom card__input">
+                <select
+                  name="board"
+                  id="board-select"
+                  class="select__reset"
+                  required
+                >
+                  <option disabled selected hidden value="">
+                    Select Board
+                  </option>
+                  <option value="cbse">CBSE</option>
+                </select>
+              </div>
+            </div>
+            <div class="card__input__wrapper">
+              <label for="grade-select" class="card__input__label"
+                >Grade *</label
+              >
+              <div class="select__custom card__input">
+                <select
+                  name="grade"
+                  id="grade-select"
+                  class="select__reset"
+                  required
+                >
+                  <option disabled selected hidden value="">
+                    Select Grade
+                  </option>
+                  <option value="4">Grade 4</option>
+                  <option value="5">Grade 5</option>
+                  <option value="6">Grade 6</option>
+                  <option value="7">Grade 7</option>
+                  <option value="8">Grade 8</option>
+                  <option value="9">Grade 9</option>
+                  <option value="9">Grade 10</option>
+                </select>
+              </div>
             </div>
           </div>
-          <div class="card__input__wrapper">
-            <label for="grade-select" class="card__input__label">Grade *</label>
-            <div class="select__custom card__input">
-              <select
-                name="grade"
-                id="grade-select"
-                class="select__reset"
-                required
+
+          <div class="card__body page">
+            <div class="card__input__wrapper">
+              <label class="card__input__label"
+                >Slot for Math and Science</label
               >
-                <option value="4">Grade 4</option>
-                <option value="5">Grade 5</option>
-                <option value="6">Grade 6</option>
-                <option value="7">Grade 7</option>
-                <option value="8">Grade 8</option>
-                <option value="9">Grade 9</option>
-                <option value="9">Grade 10</option>
-              </select>
+              <div id="mathSci-slots" class="radio__wrapper"></div>
             </div>
-          </div>
-          <div class="card__input__wrapper">
-            <label class="card__input__label">Slot for Math and Science</label>
-            <div id="mathSci-slots" class="radio__wrapper"></div>
-          </div>
-          <div class="card__input__wrapper">
-            <label class="card__input__label">Slot for English</label>
-            <div id="english-slots" class="radio__wrapper"></div>
-          </div>
-          <div class="card__input__wrapper">
-            <label class="card__input__label">Slot for SST</label>
-            <div id="sst-slots" class="radio__wrapper"></div>
-          </div>
-          <div class="card__input__wrapper">
-            <label class="card__input__label">Slot for Doubt resolution</label>
-            <div id="doubts-slots" class="radio__wrapper"></div>
+            <div class="card__input__wrapper">
+              <label class="card__input__label">Slot for English</label>
+              <div id="english-slots" class="radio__wrapper"></div>
+            </div>
+            <div class="card__input__wrapper">
+              <label class="card__input__label">Slot for SST</label>
+              <div id="sst-slots" class="radio__wrapper"></div>
+            </div>
+            <div class="card__input__wrapper">
+              <label class="card__input__label"
+                >Slot for Doubt resolution</label
+              >
+              <div id="doubts-slots" class="radio__wrapper"></div>
+            </div>
           </div>
         </div>
 

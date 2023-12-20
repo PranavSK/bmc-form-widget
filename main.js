@@ -38,7 +38,6 @@ const SLOT_OPTIONS = {
         { time: "6:45pm", days: ["Tue", "Thu", "Sat"] },
         { time: "4:30pm", days: ["Mon", "Wed", "Fri"] },
         { time: "8:00pm", days: ["Mon", "Wed", "Fri"] },
-
       ],
       english: [
         { time: "5:45pm", days: ["Tue", "Thu", "Sat"] },
@@ -218,6 +217,11 @@ const SLOT_OPTIONS = {
 const G_FORM_APP =
   "https://script.google.com/macros/s/AKfycbwo8hvSpvR3gKxkU94BQ_pzPYmNde3uvl_9RZr54aVYu8vUUt99BkG72t2ase5sIexIjg/exec";
 
+let currentPage = 0;
+const pages = document.querySelectorAll(".page");
+const breadcrumbs = [];
+const submitButton = document.querySelector("#reg-form-submit");
+
 function main() {
   setupForm();
 
@@ -229,22 +233,30 @@ function main() {
   boardElement.addEventListener("change", (event) => {
     selectedBoard = event.target.value;
     setupSlots(selectedBoard, selectedGrade);
+    checkPage1Complete();
   });
 
   gradeElement.addEventListener("change", (event) => {
     selectedGrade = event.target.value;
     setupSlots(selectedBoard, selectedGrade);
+    checkPage1Complete();
   });
 
+
   setupSlots(selectedBoard, selectedGrade);
+
+  setupPagination();
 }
 main();
 
 function setupForm() {
   const form = document.forms["reg-form"];
-  const submitButton = document.querySelector("#reg-form-submit");
 
   form.addEventListener("submit", async (event) => {
+    if (currentPage !== pages.length - 1) {
+      nextPage();
+      return;
+    }
     submitButton.disabled = true;
     event.preventDefault();
 
@@ -275,6 +287,10 @@ function setupForm() {
 }
 
 function setupSlots(board, grade) {
+  if (!board || !grade) {
+    return;
+  }
+
   const slotsBySubject = SLOT_OPTIONS[board][grade];
   for (const [subject, slots] of Object.entries(slotsBySubject)) {
     const wrapper = document.querySelector(`#${subject}-slots`);
@@ -307,5 +323,52 @@ function setupSlots(board, grade) {
       root.appendChild(dateElement);
       wrapper.appendChild(root);
     });
+  }
+}
+
+function setupPagination() {
+  const breadcrumbsContainer = document.querySelector(".breadcrumbs");
+
+  for (let i = 0; i < pages.length; i++) {
+    const page = pages[i];
+    const breadcrumb = document.createElement("li");
+    // breadcrumb.onclick = () => {
+    //   gotoPage(i);
+    //   currentPage = i;
+    // };
+    breadcrumbsContainer.appendChild(breadcrumb);
+    breadcrumbs.push(breadcrumb);
+    breadcrumb.textContent = i + 1;
+  }
+
+  gotoPage(0);
+  breadcrumbs[0].classList.add("active");
+}
+
+function gotoPage(page) {
+  pages[currentPage].classList.remove("active");
+  pages[page].classList.add("active");
+  currentPage = page;
+}
+
+function nextPage() {
+  if (currentPage < pages.length - 1) {
+    gotoPage(currentPage + 1);
+    breadcrumbs[currentPage].classList.add("active");
+  }
+
+  if (currentPage === pages.length - 1) {
+    submitButton.classList.add("active");
+  }
+}
+
+function checkPage1Complete() {
+  const form = document.forms["reg-form"];
+  const email = form.elements["email"].value;
+  const board = form.elements["board"].value;
+  const grade = form.elements["grade"].value;
+
+  if (email && board && grade) {
+    nextPage();
   }
 }
