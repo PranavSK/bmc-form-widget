@@ -300,6 +300,10 @@
   --min-col-width: 3.8rem;
 }
 
+.radio__wrapper[data-is-narrow="true"] {
+  --min-col-width: 2rem;
+}
+
 .radio__button {
   display: flex;
   flex-direction: column;
