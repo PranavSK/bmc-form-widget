@@ -309,7 +309,7 @@ body {
   gap: 0.5rem;
 }
 
-.submit__button {
+.button {
   display: flex;
   padding: 1rem 3.25rem;
   justify-content: center;
@@ -326,12 +326,12 @@ body {
   cursor: pointer;
 }
 
-.submit__button:disabled {
+.button:disabled {
   background-color: var(--color-border-default);
   cursor: not-allowed;
 }
 
-.submit__button:not(.active) {
+.button:not(.active) {
   display: none;
 }
 
@@ -384,4 +384,9 @@ body {
 
 .page:not(.active) {
   display: none;
+}
+
+.button-list {
+  display: flex;
+  gap: 2rem;
 }

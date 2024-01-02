@@ -1,5 +1,12 @@
 const SHEET_NAME = "Sheet2";
 
+const SUBJECT_NAMES = {
+  mathSci: "Maths & Science",
+  english: "English",
+  sst: "Social Studies",
+  doubts: "Doubts",
+};
+
 const SLOT_OPTIONS = {
   cbse: {
     4: {
@@ -221,25 +228,26 @@ let currentPage = 0;
 const pages = document.querySelectorAll(".page");
 const breadcrumbs = [];
 const submitButton = document.querySelector("#reg-form-submit");
+const nextButton = document.querySelector("#next-button");
+const prevButton = document.querySelector("#prev-button");
+const form = document.querySelector("#reg-form");
 
 function main() {
   setupForm();
 
-  const boardElement = document.querySelector("#board-select");
-  const gradeElement = document.querySelector("#grade-select");
+  const boardElement = document.querySelector("#board");
+  const gradeElement = document.querySelector("#grade");
   let selectedBoard = boardElement.value;
   let selectedGrade = gradeElement.value;
 
   boardElement.addEventListener("change", (event) => {
     selectedBoard = event.target.value;
     setupSlots(selectedBoard, selectedGrade);
-    checkPage1Complete();
   });
 
   gradeElement.addEventListener("change", (event) => {
     selectedGrade = event.target.value;
     setupSlots(selectedBoard, selectedGrade);
-    checkPage1Complete();
   });
 
   setupSlots(selectedBoard, selectedGrade);
@@ -249,40 +257,37 @@ function main() {
 main();
 
 function setupForm() {
-  const form = document.forms["reg-form"];
+  if (form) form.addEventListener("submit", onSubmit);
+  else submitButton.addEventListener("click", onSubmit);
+}
 
-  form.addEventListener("submit", async (event) => {
-    if (currentPage !== pages.length - 1) {
-      nextPage();
-      return;
-    }
-    submitButton.disabled = true;
-    event.preventDefault();
+async function onSubmit(event) {
+  if (currentPage !== pages.length - 1) {
+    alert("Please fill all the details.");
+    return;
+  }
 
-    let formData = new FormData(form);
-    const requestBody = {};
-    for (var [key, value] of formData.entries()) {
-      requestBody[key] = value;
-    }
+  submitButton.disabled = true;
+  event.preventDefault();
 
-    requestBody["sheet"] = SHEET_NAME;
-    try {
-      const response = await fetch(G_FORM_APP, {
-        method: "POST",
-        body: JSON.stringify(requestBody),
-      });
-      const { result, ...data } = await response.json();
-      if (result !== "success") {
-        console.error(`ERROR: ${JSON.stringify(data.error)}}`);
-        submitButton.innerHTML = "Error! Please contact us.";
-      } else {
-        submitButton.innerHTML = "Demo Booked!";
-      }
-    } catch (error) {
-      console.error(error);
-      submitButton.disabled = false;
+  const requestBody = getFormData();
+  requestBody.append("sheet", SHEET_NAME);
+  try {
+    const response = await fetch(G_FORM_APP, {
+      method: "POST",
+      body: JSON.stringify(requestBody),
+    });
+    const { result, ...data } = await response.json();
+    if (result !== "success") {
+      console.error(`ERROR: ${JSON.stringify(data.error)}}`);
+      submitButton.innerHTML = "Error! Please contact us.";
+    } else {
+      submitButton.innerHTML = "Demo Booked!";
     }
-  });
+  } catch (error) {
+    console.error(error);
+    submitButton.disabled = false;
+  }
 }
 
 function setupSlots(board, grade) {
@@ -292,7 +297,16 @@ function setupSlots(board, grade) {
 
   const slotsBySubject = SLOT_OPTIONS[board][grade];
   for (const [subject, slots] of Object.entries(slotsBySubject)) {
-    const wrapper = document.querySelector(`#${subject}-slots`);
+    let wrapper = document.querySelector(`#${subject}-slots`);
+    if (!wrapper) {
+      // create the wrapper for the subject.
+      const container = document.querySelector("#slots-page");
+      const subjectWrapper = document.createElement("div");
+      subjectWrapper.classList.add("card__input__wrapper");
+      subjectWrapper.innerHTML = `<label for="${subject}-slots" class="card__input__label">${SUBJECT_NAMES[subject]}</label><div id="${subject}-slots" class="radio__wrapper"></div>`;
+      container.appendChild(subjectWrapper);
+      wrapper = subjectWrapper.querySelector(`#${subject}-slots`);
+    }
     // delete existing slots
     while (wrapper.firstChild) {
       wrapper.removeChild(wrapper.firstChild);
@@ -310,7 +324,7 @@ function setupSlots(board, grade) {
       inputElement.setAttribute("id", id);
       inputElement.setAttribute("value", value);
       inputElement.setAttribute("required", true);
-      inputElement.setAttribute("checked", i === 0);
+      if (i === 0) inputElement.setAttribute("checked", "true");
       root.appendChild(inputElement);
 
       const dayElement = document.createElement("span");
@@ -342,34 +356,84 @@ function setupPagination() {
     breadcrumb.textContent = i + 1;
   }
 
+  nextButton.addEventListener("click", () => {
+    if (checkPageComplete()) {
+      gotoPage(currentPage + 1);
+    }
+  });
+
+  prevButton.addEventListener("click", () => {
+    gotoPage(currentPage - 1);
+  });
+
   gotoPage(0);
-  breadcrumbs[0].classList.add("active");
 }
 
 function gotoPage(page) {
+  breadcrumbs[currentPage].classList.remove("active");
   pages[currentPage].classList.remove("active");
   pages[page].classList.add("active");
   currentPage = page;
-}
-
-function nextPage() {
-  if (currentPage < pages.length - 1) {
-    gotoPage(currentPage + 1);
-    breadcrumbs[currentPage].classList.add("active");
-  }
+  breadcrumbs[currentPage].classList.add("active");
 
   if (currentPage === pages.length - 1) {
     submitButton.classList.add("active");
+  } else {
+    submitButton.classList.remove("active");
+  }
+
+  if (currentPage === 0) {
+    prevButton.classList.remove("active");
+  } else {
+    prevButton.classList.add("active");
+  }
+
+  if (currentPage === pages.length - 1) {
+    nextButton.classList.remove("active");
+  } else {
+    nextButton.classList.add("active");
   }
 }
 
-function checkPage1Complete() {
-  const form = document.forms["reg-form"];
-  const email = form.elements["email"].value;
-  const board = form.elements["board"].value;
-  const grade = form.elements["grade"].value;
+function getFormData() {
+  if (form) {
+    return new FormData(form);
+  } else {
+    const formData = new FormData();
+    const email = document.querySelector("#email").value;
+    const board = document.querySelector("#board").value;
+    const grade = document.querySelector("#grade").value;
+
+    formData.append("email", email);
+    formData.append("board", board);
+    formData.append("grade", grade);
+
+    for (const subject of Object.keys(SUBJECT_NAMES)) {
+      const slot = document.querySelector(
+        `#${subject}-slots input:checked`
+      ).value;
+      formData.append(subject, slot);
+    }
+
+    return formData;
+  }
+}
+
+function checkPageComplete() {
+  const emailElement = document.querySelector("#email");
+  const email = emailElement.checkValidity();
+  const boardElement = document.querySelector("#board");
+  const board = boardElement.checkValidity();
+  const gradeElement = document.querySelector("#grade");
+  const grade = gradeElement.checkValidity();
 
   if (email && board && grade) {
-    nextPage();
+    return true;
+  } else {
+    gradeElement.reportValidity();
+    boardElement.reportValidity();
+    emailElement.reportValidity();
+
+    return false;
   }
 }

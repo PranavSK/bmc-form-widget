@@ -24,26 +24,26 @@
         <div>
           <div class="card__body page">
             <div class="card__input__wrapper">
-              <label for="email-input" class="card__input__label"
+              <label for="email" class="card__input__label"
                 >Email *</label
               >
               <input
                 name="email"
                 type="email"
-                id="email-input"
+                id="email"
                 class="card__input"
                 placeholder="Type here"
                 required
               />
             </div>
             <div class="card__input__wrapper">
-              <label for="board-select" class="card__input__label"
+              <label for="board" class="card__input__label"
                 >Board *</label
               >
               <div class="select__custom card__input">
                 <select
                   name="board"
-                  id="board-select"
+                  id="board"
                   class="select__reset"
                   required
                 >
@@ -55,13 +55,13 @@
               </div>
             </div>
             <div class="card__input__wrapper">
-              <label for="grade-select" class="card__input__label"
+              <label for="grade" class="card__input__label"
                 >Grade *</label
               >
               <div class="select__custom card__input">
                 <select
                   name="grade"
-                  id="grade-select"
+                  id="grade"
                   class="select__reset"
                   required
                 >
@@ -80,34 +80,18 @@
             </div>
           </div>
 
-          <div class="card__body page">
-            <div class="card__input__wrapper">
-              <label class="card__input__label"
-                >Slot for Math and Science</label
-              >
-              <div id="mathSci-slots" class="radio__wrapper"></div>
-            </div>
-            <div class="card__input__wrapper">
-              <label class="card__input__label">Slot for English</label>
-              <div id="english-slots" class="radio__wrapper"></div>
-            </div>
-            <div class="card__input__wrapper">
-              <label class="card__input__label">Slot for SST</label>
-              <div id="sst-slots" class="radio__wrapper"></div>
-            </div>
-            <div class="card__input__wrapper">
-              <label class="card__input__label"
-                >Slot for Doubt resolution</label
-              >
-              <div id="doubts-slots" class="radio__wrapper"></div>
-            </div>
+          <div id="slots-page" class="card__body page">
           </div>
         </div>
 
         <div class="card__footer">
-          <button id="reg-form-submit" class="submit__button" type="submit">
-            Submit
-          </button>
+          <div class="button-list">
+            <button id="prev-button" class="button active" type="button">Prev</button>
+            <button id="reg-form-submit" class="button active" type="submit">
+              Submit
+            </button>
+            <button id="next-button" class="button active" type="button">Next</button>
+          </div>
           <div class="card__subtitle">⌛ Hurry! Only 12 slots left</div>
         </div>
       </form>
